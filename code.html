@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<title>Beyond Broken English — Nikunj Wakode</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-surface-variant": "#8F8C84",
+            "surface-tint": "#E87A50",
+            "on-surface": "#FAF6EE",
+            "on-surface-muted": "#E6E0D4",
+            "primary": "#E87A50",
+            "primary-container": "#D96B43",
+            "on-primary-container": "#FAF6EE",
+            "secondary": "#E0A96D",
+            "secondary-container": "#7A3D22",
+            "tertiary": "#68D8D6",
+            "tertiary-container": "#205A58",
+            "surface": "#101014",
+            "surface-dim": "#0A0A0C",
+            "surface-container-lowest": "#070709",
+            "surface-container-low": "#111116",
+            "surface-container": "#16161B",
+            "surface-container-high": "#1C1C24",
+            "surface-container-highest": "#24242F",
+            "outline": "#4D4B46",
+            "outline-variant": "rgba(255, 255, 255, 0.08)",
+            "ember-glow": "rgba(232, 122, 80, 0.22)"
+          },
+          fontFamily: {
+            "headline-sm": ["Newsreader", "serif"],
+            "headline-md": ["Newsreader", "serif"],
+            "headline-lg": ["Newsreader", "serif"],
+            "display-xl": ["Newsreader", "serif"],
+            "body-sm": ["Geist", "sans-serif"],
+            "body-md": ["Newsreader", "serif"],
+            "body-lg": ["Newsreader", "serif"],
+            "label-sm": ["Geist", "sans-serif"],
+            "label-md": ["Geist", "sans-serif"],
+            "label-lg": ["Geist", "sans-serif"]
+          },
+          spacing: {
+            "gutter-mobile": "1.25rem",
+            "margin-mobile": "1.25rem",
+            "space-xl": "3rem",
+            "margin": "4rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "gutter": "1.75rem",
+            "space-lg": "2rem",
+            "space-sm": "0.5rem"
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #0A0A0C;
+        color: #FAF6EE;
+        scroll-behavior: smooth;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+    }
+    ::-webkit-scrollbar { display: none; }
+
+    /* Flashlight spotlight glow */
+    #spotlight-glow {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 750px;
+      height: 750px;
+      background: radial-gradient(circle, rgba(232, 122, 80, 0.09) 0%, rgba(104, 216, 214, 0.035) 45%, transparent 70%);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      z-index: 1;
+      transition: transform 0.06s ease-out;
+    }
+
+    /* Glassmorphic border shimmer */
+    .glass-panel {
+      background: rgba(22, 22, 27, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(232, 122, 80, 0.12);
+    }
+    .glass-panel-hover:hover {
+      border-color: rgba(232, 122, 80, 0.35);
+      box-shadow: 0 24px 50px -12px rgba(217, 107, 67, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    /* 3D tilt perspective */
+    .perspective-1200 {
+      perspective: 1200px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+
+    /* Scroll reveal transitions */
+    .reveal-elem {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-elem.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Shimmer button animation */
+    .btn-copper {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #E87A50 0%, #D96B43 100%);
+      box-shadow: 0 10px 28px -6px rgba(217, 107, 67, 0.45);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-copper:hover {
+      box-shadow: 0 14px 34px -4px rgba(232, 122, 80, 0.65);
+      transform: translateY(-1.5px);
+    }
+    .btn-copper::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent 35%, rgba(255,255,255,0.25) 50%, transparent 65%);
+      transform: rotate(30deg) translateX(-100%);
+      transition: transform 0.75s ease;
+    }
+    .btn-copper:hover::before {
+      transform: rotate(30deg) translateX(100%);
+    }
+
+    /* Hide scrollbars */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-[#0A0A0C] text-[#FAF6EE] antialiased selection:bg-primary selection:text-[#0A0A0C] min-h-screen relative overflow-x-hidden">
+<!-- Interactive Spotlight Torch -->
+<div class="hidden md:block" id="spotlight-glow"></div>
+<!-- Ambient Cinematic Particles Canvas -->
+<canvas class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-45" id="ambient-canvas"></canvas>
+<!-- Cosmic Nebula Ambient Background Texture -->
+<div class="fixed inset-0 pointer-events-none z-0 opacity-20 mix-blend-screen overflow-hidden">
+<img alt="Cosmic twilight background ambience" class="w-full h-full object-cover object-right filter blur-3xl scale-125 transform translate-y-12" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZ7Ly_AuAQ7_tgvfiSvM9AlRny2gXt3bKhTttT_2arTp4UovwS6dVRrQBdp2RRd1idU-3gDyM_C8TMFaGWhzaQfOIrOT-d9M9AJiyWG3dJyp3VpJoYEZPElzZRmBB4P7-k88u7Bn_9AYsd2t213FTTZzRc4jr2v4-Jl3LcLlYJAaXJddS7t89eo39-laRxWC7SL8-jwfN8RPwed9ArTAqI9MiR88-CzRFCUmjJ5YcCDsMLor9npSLX_Q"/>
+</div>
+<!-- Sticky Top Navigation Chrome with Frosted Blur -->
+<header class="fixed top-0 inset-x-0 z-50 bg-[#0A0A0C]/75 backdrop-blur-xl border-b border-white/[0.07] transition-all duration-300">
+<div class="h-20 w-full px-gutter-mobile lg:px-margin flex items-center justify-between max-w-7xl mx-auto">
+<div class="flex items-center gap-space-sm">
+<a class="group flex flex-col" href="#">
+<span class="font-headline-sm text-[22px] tracking-tight text-[#FAF6EE] group-hover:text-primary transition-colors">Beyond Broken English</span>
+<span class="font-label-sm text-[11px] uppercase tracking-[0.22em] text-[#8F8C84] -mt-0.5">Nikunj Wakode</span>
+</a>
+</div>
+<div class="flex items-center gap-space-md lg:gap-space-lg">
+<nav class="hidden md:flex items-center gap-7 lg:gap-9">
+<a class="font-label-md text-xs uppercase tracking-widest text-[#8F8C84] hover:text-[#FAF6EE] hover:text-primary transition-colors" href="#the-inner-dialogue">The Story</a>
+<a class="font-label-md text-xs uppercase tracking-widest text-[#8F8C84] hover:text-[#FAF6EE] hover:text-primary transition-colors" href="#three-pillars">Three Pillars</a>
+<a class="font-label-md text-xs uppercase tracking-widest text-[#8F8C84] hover:text-[#FAF6EE] hover:text-primary transition-colors" href="#how-it-works-pinned">System</a>
+<a class="font-label-md text-xs uppercase tracking-widest text-[#8F8C84] hover:text-[#FAF6EE] hover:text-primary transition-colors" href="#reader-words">Reflections</a>
+</nav>
+<a class="btn-copper inline-flex items-center justify-center font-label-lg text-xs uppercase tracking-wider px-5 py-2.5 rounded text-[#FAF6EE] font-semibold group cursor-pointer" href="https://superprofile.bio/vp/beyond-broken-english" rel="noopener noreferrer" target="_blank">
+<span>Get the Book</span>
+<span class="material-symbols-outlined text-[16px] ml-1.5 group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Main Content Flow -->
+<main class="relative z-10 w-full pt-20">
+<!-- HERO SECTION -->
+<section class="relative w-full px-gutter-mobile lg:px-margin pt-20 pb-28 md:py-32 flex flex-col items-center text-center overflow-hidden">
+<!-- Glow Accents -->
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[820px] h-[400px] bg-primary/15 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+<div class="absolute top-[320px] -right-20 w-[480px] h-[480px] bg-[#68D8D6]/10 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+<!-- Overline Pill -->
+<div class="reveal-elem inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface-container/80 border border-white/10 shadow-lg backdrop-blur-md mb-8">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-[11px] uppercase tracking-[0.24em] text-[#E6E0D4]">An Editorial Journey · Nikunj Wakode</span>
+</div>
+<!-- Headline -->
+<h1 class="reveal-elem max-w-4xl font-display-xl text-4xl sm:text-6xl md:text-7xl text-[#FAF6EE] tracking-tight leading-[1.08] mb-6">
+        You have the words.<br/>
+<span class="italic text-primary font-normal drop-shadow-[0_2px_24px_rgba(232,122,80,0.35)]">So why are you still silent?</span>
+</h1>
+<!-- Tagline -->
+<p class="reveal-elem max-w-2xl font-body-lg text-xl md:text-2xl text-[#8F8C84] font-light mb-12 leading-relaxed">
+        A simple, human journey from <span class="text-[#FAF6EE] font-normal">‘I can’t speak English’</span> to <span class="text-primary italic">‘Let me try.’</span>
+</p>
+<!-- Action Buttons -->
+<div class="reveal-elem flex flex-col sm:flex-row items-center gap-4 mb-20 z-20">
+<a class="btn-copper inline-flex items-center gap-2 px-8 py-3.5 rounded text-[#FAF6EE] font-label-lg text-xs uppercase tracking-wider font-semibold group" href="https://superprofile.bio/vp/beyond-broken-english" rel="noopener noreferrer" target="_blank">
+<span>Get the Book</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+<a class="inline-flex items-center gap-2 px-6 py-3.5 rounded bg-surface-container/60 border border-white/10 text-[#FAF6EE] font-label-lg text-xs uppercase tracking-wider hover:border-primary/50 hover:bg-surface-container-high transition-all" href="#the-inner-dialogue">
+<span class="material-symbols-outlined text-[18px] text-primary">play_circle</span>
+<span>Explore The Inner Story</span>
+</a>
+</div>
+<!-- Interactive Micro-Constellation Diagram -->
+<div class="reveal-elem relative w-full max-w-4xl h-72 md:h-80 flex items-center justify-center mt-2">
+<svg class="absolute inset-0 w-full h-full pointer-events-none" fill="none" viewbox="0 0 896 320" xmlns="http://www.w3.org/2000/svg">
+<path d="M 60 160 Q 240 40 448 160 T 836 160" stroke="#D96B43" stroke-dasharray="4 8" stroke-opacity="0.35" stroke-width="1.5"></path>
+<path d="M 120 220 C 300 280, 580 80, 780 200" stroke="#68D8D6" stroke-dasharray="3 6" stroke-opacity="0.25" stroke-width="1"></path>
+</svg>
+<!-- Center Node -->
+<div class="relative z-10 w-32 h-32 rounded-full bg-surface-container/90 border border-primary/40 flex flex-col items-center justify-center shadow-2xl backdrop-blur-xl group cursor-pointer hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-primary text-3xl mb-1 group-hover:scale-110 transition-transform">mic</span>
+<span class="font-label-sm text-[10px] text-[#8F8C84] uppercase tracking-widest">Unvoiced</span>
+<div class="absolute -inset-2.5 rounded-full bg-primary/20 animate-ping opacity-25 pointer-events-none"></div>
+</div>
+<!-- Floating Sentence Fragments with Glowing Cards -->
+<div class="absolute left-3 md:left-14 top-4 glass-panel px-4 py-2.5 rounded shadow-xl text-left transform hover:-translate-y-1 transition-transform">
+<span class="font-label-sm text-[10px] text-[#8F8C84] block uppercase tracking-widest">Fragment 01</span>
+<span class="font-headline-sm text-[16px] text-[#FAF6EE] italic">“I think...”</span>
+</div>
+<div class="absolute right-3 md:right-16 top-2 glass-panel px-4 py-2.5 rounded shadow-xl text-left transform hover:-translate-y-1 transition-transform border-primary/30">
+<span class="font-label-sm text-[10px] text-primary block uppercase tracking-widest">Fragment 02</span>
+<span class="font-headline-sm text-[16px] text-primary italic">“What if I make a mistake?”</span>
+</div>
+<div class="absolute left-4 md:left-20 bottom-4 glass-panel px-4 py-2.5 rounded shadow-xl text-left transform hover:-translate-y-1 transition-transform">
+<span class="font-label-sm text-[10px] text-secondary block uppercase tracking-widest">Private Space</span>
+<span class="font-headline-sm text-[16px] text-[#FAF6EE]">“Mirror Mantra”</span>
+</div>
+<div class="absolute right-4 md:right-24 bottom-4 glass-panel px-4 py-2.5 rounded shadow-xl text-left transform hover:-translate-y-1 transition-transform border-primary/40 bg-surface-container-high/90">
+<span class="font-label-sm text-[10px] text-primary block uppercase tracking-widest font-semibold">Breakthrough</span>
+<span class="font-headline-sm text-[16px] text-[#FAF6EE] font-medium">“Let me try.”</span>
+</div>
+</div>
+</section>
+<!-- SECTION 2: ULTRA-CINEMATIC STICKY SCROLL STORYTELLING (350vh pinned experience) -->
+<section class="relative w-full border-t border-white/[0.08] bg-[#0A0A0C]" id="the-inner-dialogue" style="height: 380vh;">
+<!-- Pinned 100vh Viewport Stage -->
+<div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-gutter-mobile lg:px-margin z-20">
+<!-- Ambient Atmosphere Gradients behind stage -->
+<div class="absolute top-1/2 left-1/4 -translate-y-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-primary/10 rounded-full blur-[180px] pointer-events-none"></div>
+<div class="absolute top-1/2 right-1/4 -translate-y-1/2 translate-x-1/2 w-[450px] h-[450px] bg-[#68D8D6]/10 rounded-full blur-[170px] pointer-events-none"></div>
+<div class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+<!-- LEFT SIDE: Sticky Pinned Editorial Context & Stepper HUD -->
+<div class="lg:col-span-5 flex flex-col justify-between h-auto">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-surface-container border border-primary/30 text-primary font-label-sm text-[11px] uppercase tracking-widest mb-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span>The Inner Dialogue</span>
+</div>
+<h2 class="font-headline-md text-3xl lg:text-4xl text-[#FAF6EE] leading-tight mb-3">
+                The invisible paralysis before speech.
+              </h2>
+<p class="font-body-md text-base text-[#8F8C84] leading-relaxed mb-6">
+                A quiet, sequence-by-sequence reconstruction of the cognitive jam that happens inside seconds of choosing to speak.
+              </p>
+</div>
+<!-- Chapter Counter & Interactive Step Dots Rail -->
+<div class="glass-panel p-5 rounded-xl border border-white/10 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-xs uppercase tracking-widest text-[#8F8C84]">Stage Navigation</span>
+<span class="font-headline-sm text-lg text-primary font-semibold" id="hud-stage-counter">01 / 09</span>
+</div>
+<!-- Fluid Progress Bar -->
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-[#68D8D6] transition-all duration-300" id="hud-progress-bar" style="width: 11.1%;"></div>
+</div>
+<!-- Clickable Step Chips -->
+<div class="grid grid-cols-9 gap-1.5 pt-1" id="interactive-step-pills">
+<!-- Rendered dynamically or via data attribute -->
+<button aria-label="Stage 1" class="h-8 rounded bg-primary text-[#0A0A0C] font-label-sm text-xs font-bold flex items-center justify-center transition-all" data-step="1">1</button>
+<button aria-label="Stage 2" class="h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-[#8F8C84] font-label-sm text-xs flex items-center justify-center transition-all" data-step="2">2</button>
+<button aria-label="Stage 3" class="h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-[#8F8C84] font-label-sm text-xs flex items-center justify-center transition-all" data-step="3">3</button>
+<button aria-label="Stage 4" class="h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-[#8F8C84] font-label-sm text-xs flex items-center justify-center transition-all" data-step="4">4</button>
+<button aria-label="Stage 5" class="h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-[#8F8C84] font-label-sm text-xs flex items-center justify-center transition-all" data-step="5">5</button>
+<button aria-label="Stage 6" class="h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-[#8F8C84] font-label-sm text-xs flex items-center justify-center transition-all" data-step="6">6</button>
+<button aria-label="Stage 7" class="h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-[#8F8C84] font-label-sm text-xs flex items-center justify-center transition-all" data-step="7">7</button>
+<button aria-label="Stage 8" class="h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-[#8F8C84] font-label-sm text-xs flex items-center justify-center transition-all" data-step="8">8</button>
+<button aria-label="Stage 9" class="h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-[#8F8C84] font-label-sm text-xs flex items-center justify-center transition-all" data-step="9">9</button>
+</div>
+<!-- Dynamic Subtitle Prompt -->
+<div class="text-[12px] font-label-sm text-[#8F8C84] flex items-center justify-between pt-1 border-t border-white/[0.06]">
+<span id="hud-stage-name">Step 01: Observation</span>
+<span class="text-primary italic">Scroll or click</span>
+</div>
+</div>
+</div>
+<!-- RIGHT SIDE: Fluid Cross-Fading Cinematic Stage Card with Dynamic Constellation Visual -->
+<div class="lg:col-span-7 relative min-h-[460px] flex items-center">
+<!-- STAGE CARD CONTAINER -->
+<div class="w-full glass-panel rounded-2xl p-8 md:p-12 relative overflow-hidden border border-white/10 shadow-2xl transition-all duration-500" id="story-stage-card">
+<!-- Subtle Celestial Constellation Ambient Art -->
+<div class="absolute -right-16 -top-16 w-56 h-56 rounded-full bg-primary/10 blur-3xl pointer-events-none transition-all duration-700" id="stage-halo"></div>
+<!-- Top Micro Meta -->
+<div class="flex items-center justify-between mb-8 pb-4 border-b border-white/[0.08]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl" id="stage-icon">visibility</span>
+<span class="font-label-sm text-xs uppercase tracking-widest text-[#FAF6EE] font-semibold" id="stage-badge">01 · OBSERVATION</span>
+</div>
+<span class="font-label-sm text-[11px] text-[#8F8C84] uppercase tracking-wider">Internal Sequence</span>
+</div>
+<!-- Main Dynamic Headline & Narrative Quotation -->
+<div class="min-h-[160px] flex flex-col justify-center">
+<p class="font-display-xl text-3xl sm:text-4xl md:text-5xl text-[#FAF6EE] leading-snug transition-all duration-500 ease-out" id="stage-quote">
+                  “You understand English.”
+                </p>
+<p class="font-body-md text-base text-[#8F8C84] mt-4 leading-relaxed transition-all duration-500" id="stage-annotation">
+                  You read effortlessly. You follow lectures, films, and podcasts with ease. The logic resides comfortably in your comprehension.
+                </p>
+</div>
+<!-- Dynamic Stage Visual Metaphor / Status Gauge -->
+<div class="mt-8 pt-6 border-t border-white/[0.08] flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-primary" id="stage-indicator-light"></div>
+<span class="font-label-sm text-xs text-[#E6E0D4]" id="stage-state-text">Mind: Receptive &amp; Clear</span>
+</div>
+<div class="hidden" id="stage-cta-wrapper">
+<a class="btn-copper inline-flex items-center gap-1.5 px-5 py-2 rounded text-xs font-label-md uppercase tracking-wider text-[#FAF6EE] font-semibold" href="https://superprofile.bio/vp/beyond-broken-english" rel="noopener noreferrer" target="_blank">
+<span>Discover The Method</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CINEMATIC DIVIDER: QUOTATION ARTWORK (Image 3) -->
+<section class="w-full relative py-20 border-t border-white/[0.08] bg-[#0E0E12] overflow-hidden">
+<div class="max-w-5xl mx-auto px-gutter-mobile lg:px-margin flex flex-col md:flex-row items-center justify-between gap-10">
+<div class="w-full md:w-1/2 flex justify-center">
+<div class="relative group rounded-xl overflow-hidden border border-white/10 shadow-2xl glass-panel">
+<img alt="Every idea needs other people to grow quotation visual" class="w-full max-w-md h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdzvWKeuO54dIGqPJXpSEDg89_2Mz7LZcrPvzMx9HYhdsQZ5yQTeSOeMZyV4uqPLhi4c5OvlVmimTDfRve_JNBpuVhA30HvA1hlZe_5njmJhwDAdJszhc3rzi0ShOzAaVhzfAZlyPYmI8XNxJdMQ0IgExNFyS766AbWuJjUttMwYhZq-H80kxlSSOMrCEYNpTYS3TnRMXG2sa9TwwHVx-fPtVz_6nFlsyAmyxy1v1hHP93mm-d5MYaRA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-transparent to-transparent opacity-60"></div>
+</div>
+</div>
+<div class="w-full md:w-1/2 flex flex-col gap-4 text-left">
+<span class="font-label-sm text-xs uppercase tracking-[0.25em] text-primary">The Philosophy</span>
+<h3 class="font-headline-md text-3xl md:text-4xl text-[#FAF6EE] leading-tight">
+            “The writer needs a reader.<br/>
+            The speaker needs an ear.”
+          </h3>
+<p class="font-body-md text-base text-[#8F8C84] leading-relaxed">
+            Language isn’t a solo perfection score; it is a shared bridge. The moment you shift focus from being judged to simply being understood, the knot untangles.
+          </p>
+</div>
+</div>
+</section>
+<!-- SECTION 3: THREE-CARD TRANSFORMATION PILLARS (Interactive 3D Perspective & Tilt) -->
+<section class="w-full px-gutter-mobile lg:px-margin py-28 relative border-t border-white/[0.08] bg-[#0A0A0C]" id="three-pillars">
+<div class="max-w-6xl mx-auto flex flex-col">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+<div>
+<span class="font-label-sm text-xs uppercase tracking-widest text-primary block mb-2 font-semibold">Three Core Pillars</span>
+<h2 class="font-headline-lg text-3xl md:text-5xl text-[#FAF6EE]">
+              Structure → Speak → Strengthen
+            </h2>
+</div>
+<p class="font-body-md text-lg text-[#8F8C84] max-w-md">
+            English gets easier when you stop treating every sentence like a test and start treating it like a craft.
+          </p>
+</div>
+<!-- 3 Interactive Tilt Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-1200">
+<!-- CARD 01: STRUCTURE (Artwork Image 12) -->
+<div class="interactive-tilt-card glass-panel rounded-xl p-7 flex flex-col justify-between transition-all duration-300 group cursor-pointer" data-tilt="card">
+<div>
+<div class="flex items-center justify-between mb-5">
+<span class="font-label-sm text-xs uppercase tracking-wider text-[#8F8C84] group-hover:text-primary transition-colors">01 — STRUCTURE</span>
+<span class="material-symbols-outlined text-[#8F8C84] group-hover:text-primary transition-colors">schema</span>
+</div>
+<h3 class="font-headline-md text-2xl text-[#FAF6EE] mb-3 leading-snug">
+                Build sentences, not fear.
+              </h3>
+<p class="font-body-md text-sm text-[#8F8C84] leading-relaxed mb-6">
+                Learn simple sentence structures so you don’t have to translate every thought in your head.
+              </p>
+</div>
+<div class="w-full h-64 rounded-lg overflow-hidden bg-surface-container-high relative flex items-center justify-center border border-white/10 group-hover:border-primary/40 transition-colors">
+<img alt="Chapter 1 The English Problem visual showing classroom thought bubbles" class="w-full h-full object-cover grayscale contrast-125 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN_xrrkKrdIUmLDN7vLjmxdVsFMAB91kT_KSj2FVeVWoS_2RqdZMneR11QrTvw0btnG3iueITcLWqe2FepcyBtmAMvzS_S5Ce5yVKTEtSgRZF6pK1TIjkeICDGdgChGkBql8VBfSIL0bGaMOoovuc9jMyBagxJvJ4uXd872m98L4rDYJwGzrAzZFDZRTj6BRSOBnS5FebjIr1Mlm0SBMmr1sV3V7PYQ1h79jHtEdTMXxhEyLxEx9Uxfw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-3 left-3 bg-[#0A0A0C]/90 backdrop-blur-md px-3 py-1 rounded text-[11px] font-label-sm text-[#E6E0D4] border border-white/10">
+                Chapter 01 · Mental Block
+              </div>
+</div>
+</div>
+<!-- CARD 02: SPEAK (Artwork Image 11) -->
+<div class="interactive-tilt-card glass-panel rounded-xl p-7 flex flex-col justify-between transition-all duration-300 group cursor-pointer" data-tilt="card">
+<div>
+<div class="flex items-center justify-between mb-5">
+<span class="font-label-sm text-xs uppercase tracking-wider text-[#8F8C84] group-hover:text-secondary transition-colors">02 — SPEAK</span>
+<span class="material-symbols-outlined text-[#8F8C84] group-hover:text-secondary transition-colors">face</span>
+</div>
+<h3 class="font-headline-md text-2xl text-[#FAF6EE] mb-3 leading-snug">
+                Speak before you’re ready.
+              </h3>
+<p class="font-body-md text-sm text-[#8F8C84] leading-relaxed mb-6">
+                Use the Mirror Mantra and everyday speaking practice to get comfortable hearing your own English voice.
+              </p>
+</div>
+<div class="w-full h-64 rounded-lg overflow-hidden bg-surface-container-high relative flex items-center justify-center border border-white/10 group-hover:border-secondary/40 transition-colors">
+<img alt="Chapter 2 Grammar The Friendly Nightmare showing late night study and shadows" class="w-full h-full object-cover grayscale contrast-125 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWqvPzAU1Svv6Rb4ybTRE3SOkCr9NpJ89tuvK4p7R_t7ZwIJFbA2DCk0g7RrxXco54rqYtHgNHV6q0jyy83NXtD3i98GbdE9JJeuZad1XynC-1SeIAbbqAqCp4m0LLtBjfK1boszONtv02S3xNyqYwNyEZqKEH-5wS8ytknJzhaCdnTG0IL06m2sc4jIEz6phTdCW7X3aQG9UCqHlLpMTtKddhu-wYGDYKK1apY3E0RiWDvFq27w_uMA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-3 left-3 bg-[#0A0A0C]/90 backdrop-blur-md px-3 py-1 rounded text-[11px] font-label-sm text-[#E6E0D4] border border-white/10">
+                Chapter 02 · Friendly Nightmare
+              </div>
+</div>
+</div>
+<!-- CARD 03: STRENGTHEN (LSRW Interactive Badges) -->
+<div class="interactive-tilt-card glass-panel rounded-xl p-7 flex flex-col justify-between transition-all duration-300 group cursor-pointer" data-tilt="card">
+<div>
+<div class="flex items-center justify-between mb-5">
+<span class="font-label-sm text-xs uppercase tracking-wider text-[#8F8C84] group-hover:text-tertiary transition-colors">03 — STRENGTHEN</span>
+<span class="material-symbols-outlined text-[#8F8C84] group-hover:text-tertiary transition-colors">trending_up</span>
+</div>
+<h3 class="font-headline-md text-2xl text-[#FAF6EE] mb-3 leading-snug">
+                Turn practice into progress.
+              </h3>
+<p class="font-body-md text-sm text-[#8F8C84] leading-relaxed mb-6">
+                Work on Listening, Speaking, Reading &amp; Writing together — one small habit at a time.
+              </p>
+</div>
+<!-- Interactive LSRW Badges Canvas -->
+<div class="w-full h-64 rounded-lg bg-surface-container-high border border-white/10 p-5 flex flex-col items-center justify-center text-center relative overflow-hidden group-hover:border-tertiary/40 transition-colors">
+<div class="grid grid-cols-2 gap-3 w-full max-w-[240px] mb-4">
+<div class="lsrw-badge bg-[#0A0A0C]/95 border border-white/10 hover:border-primary px-3 py-2 rounded text-center transition-all cursor-pointer">
+<span class="font-label-sm text-[11px] text-[#FAF6EE] block font-semibold hover:text-primary">LISTEN</span>
+<span class="text-[9px] text-[#8F8C84] block">Ear Tuning</span>
+</div>
+<div class="lsrw-badge bg-[#0A0A0C]/95 border border-white/10 hover:border-primary px-3 py-2 rounded text-center transition-all cursor-pointer">
+<span class="font-label-sm text-[11px] text-[#FAF6EE] block font-semibold hover:text-primary">SPEAK</span>
+<span class="text-[9px] text-[#8F8C84] block">Mirror Mantra</span>
+</div>
+<div class="lsrw-badge bg-[#0A0A0C]/95 border border-white/10 hover:border-primary px-3 py-2 rounded text-center transition-all cursor-pointer">
+<span class="font-label-sm text-[11px] text-[#FAF6EE] block font-semibold hover:text-primary">READ</span>
+<span class="text-[9px] text-[#8F8C84] block">Cadence</span>
+</div>
+<div class="lsrw-badge bg-[#0A0A0C]/95 border border-white/10 hover:border-primary px-3 py-2 rounded text-center transition-all cursor-pointer">
+<span class="font-label-sm text-[11px] text-[#FAF6EE] block font-semibold hover:text-primary">WRITE</span>
+<span class="text-[9px] text-[#8F8C84] block">Micro-Journal</span>
+</div>
+</div>
+<div class="px-4 py-1 rounded bg-primary text-[#FAF6EE] font-label-sm text-xs font-semibold tracking-wide shadow-md">
+                Habitual Flow Activated
+              </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: PINNED "HOW IT WORKS" WORKFLOW (Interactive Progression) -->
+<section class="relative w-full border-t border-white/[0.08] bg-[#0A0A0C]" id="how-it-works-pinned" style="height: 300vh;">
+<!-- Pinned Viewport Container -->
+<div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-gutter-mobile lg:px-margin">
+<div class="max-w-6xl w-full mx-auto flex flex-col justify-between py-12 md:py-16 h-full max-h-[820px]">
+<!-- Top Row: Section Tag & Interactive Progress Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
+<div>
+<span class="font-label-sm text-xs uppercase tracking-widest text-primary block mb-1 font-semibold">The Systematic Process</span>
+<h2 class="font-headline-lg text-2xl md:text-4xl text-[#FAF6EE]">How It Works.</h2>
+</div>
+<!-- Progress Tracker -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-label-sm uppercase tracking-wider text-primary font-semibold" id="step-nav-1">01 Structure</span>
+<span class="text-[#8F8C84]">/</span>
+<span class="text-xs font-label-sm uppercase tracking-wider text-[#8F8C84]" id="step-nav-2">02 Speak</span>
+<span class="text-[#8F8C84]">/</span>
+<span class="text-xs font-label-sm uppercase tracking-wider text-[#8F8C84]" id="step-nav-3">03 Strengthen</span>
+</div>
+<div class="w-32 h-1.5 bg-surface-container rounded-full overflow-hidden border border-white/10">
+<div class="h-full bg-primary transition-all duration-300 w-1/3" id="sticky-progress-fill"></div>
+</div>
+</div>
+</div>
+<!-- Main Interactive Viewport: Left Visual Canvas + Right Explanation Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto">
+<!-- Left Side: Interactive Dynamic Display -->
+<div class="lg:col-span-6 rounded-2xl glass-panel p-8 shadow-2xl min-h-[380px] flex flex-col justify-between relative overflow-hidden border border-white/10">
+<!-- STEP 01 DISPLAY -->
+<div class="transition-opacity duration-500 opacity-100 flex flex-col justify-between h-full" id="pinned-display-1">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/20 border border-primary/40 text-primary font-label-sm text-[11px] uppercase tracking-wider mb-4">
+                    Stage 01 • Cognitive Unravelling
+                  </div>
+<h4 class="font-headline-md text-2xl text-[#FAF6EE] mb-4">From Tangled Thoughts to Direct Speech</h4>
+<p class="font-body-md text-sm text-[#8F8C84]">Converting dense internal translation into clear, confident English blocks.</p>
+</div>
+<div class="w-full bg-surface-container-high border border-white/10 rounded-xl p-5 my-6 flex flex-col gap-3">
+<div class="flex items-start gap-3 p-3 rounded-lg bg-[#0A0A0C]/80 border border-white/5">
+<span class="w-2.5 h-2.5 rounded-full bg-red-400 shrink-0 mt-1.5"></span>
+<div>
+<span class="font-label-sm text-[10px] uppercase text-[#8F8C84] block">Overthought Translation (Mother Tongue)</span>
+<p class="font-body-sm text-xs text-[#8F8C84] line-through italic">“I was thinking that since yesterday I wanted to clarify regarding the matter...”</p>
+</div>
+</div>
+<div class="flex items-center justify-center text-primary py-0.5">
+<span class="material-symbols-outlined text-sm">arrow_downward</span>
+</div>
+<div class="flex items-start gap-3 p-3.5 rounded-lg bg-[#16161B] border border-primary/40">
+<span class="w-2.5 h-2.5 rounded-full bg-primary shrink-0 mt-1.5 animate-pulse"></span>
+<div>
+<span class="font-label-sm text-[10px] uppercase text-primary block font-semibold">Direct Structured English</span>
+<p class="font-headline-sm text-base text-[#FAF6EE] font-medium">“I started the project yesterday, and here is what we need.”</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-[#8F8C84] font-label-sm text-xs pt-3 border-t border-white/[0.08]">
+<span>Direct Subject + Verb Logic</span>
+<span class="text-primary font-medium">Instant Response</span>
+</div>
+</div>
+<!-- STEP 02 DISPLAY -->
+<div class="hidden transition-opacity duration-500 opacity-0 flex flex-col justify-between h-full" id="pinned-display-2">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-secondary/20 border border-secondary/40 text-secondary font-label-sm text-[11px] uppercase tracking-wider mb-4">
+                    Stage 02 • Solo Reflection
+                  </div>
+<h4 class="font-headline-md text-2xl text-[#FAF6EE] mb-4">The Mirror Mantra In Action</h4>
+<p class="font-body-md text-sm text-[#8F8C84]">Low-stakes private vocal drills that calibrate your vocal tract without scrutiny.</p>
+</div>
+<div class="w-full bg-surface-container-high border border-white/10 rounded-xl p-5 my-6 flex flex-col gap-3">
+<div class="p-3 rounded-lg bg-[#0A0A0C]/80 border border-white/5">
+<span class="font-label-sm text-[10px] uppercase text-[#8F8C84] block">Reflection Prompt 01</span>
+<p class="font-headline-sm text-sm text-[#FAF6EE]">“Today I worked through the whole report.”</p>
+</div>
+<div class="p-3 rounded-lg bg-[#0A0A0C]/80 border border-white/5 ml-4">
+<span class="font-label-sm text-[10px] uppercase text-[#8F8C84] block">Reflection Prompt 02</span>
+<p class="font-headline-sm text-sm text-[#FAF6EE]">“I made two mistakes, but corrected them quickly.”</p>
+</div>
+<div class="p-3 rounded-lg bg-[#16161B] border border-secondary/40 ml-8">
+<span class="font-label-sm text-[10px] uppercase text-secondary block font-semibold">The Vocal Shift</span>
+<p class="font-headline-sm text-sm text-secondary font-medium">“Hearing my own English voice no longer feels strange.”</p>
+</div>
+</div>
+<div class="flex items-center justify-between text-[#8F8C84] font-label-sm text-xs pt-3 border-t border-white/[0.08]">
+<span>Zero Audience Risk</span>
+<span class="text-secondary font-medium">Muscle Memory Built Daily</span>
+</div>
+</div>
+<!-- STEP 03 DISPLAY -->
+<div class="hidden transition-opacity duration-500 opacity-0 flex flex-col justify-between h-full" id="pinned-display-3">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#68D8D6]/20 border border-[#68D8D6]/40 text-[#68D8D6] font-label-sm text-[11px] uppercase tracking-wider mb-4">
+                    Stage 03 • Integration
+                  </div>
+<h4 class="font-headline-md text-2xl text-[#FAF6EE] mb-4">Convergence: LSRW into Confidence</h4>
+<p class="font-body-md text-sm text-[#8F8C84]">Four balanced sensory daily touchpoints replacing memorization anxiety.</p>
+</div>
+<div class="relative w-full aspect-video max-h-48 my-5 flex items-center justify-center">
+<div class="grid grid-cols-2 gap-3 w-full max-w-sm">
+<div class="p-3 rounded bg-[#0A0A0C]/90 border border-[#68D8D6]/30 text-center">
+<span class="font-label-sm text-[11px] text-[#68D8D6] font-semibold block">LISTEN</span>
+<span class="text-[11px] text-[#8F8C84]">Natural Cadence</span>
+</div>
+<div class="p-3 rounded bg-[#0A0A0C]/90 border border-[#68D8D6]/30 text-center">
+<span class="font-label-sm text-[11px] text-[#68D8D6] font-semibold block">SPEAK</span>
+<span class="text-[11px] text-[#8F8C84]">Micro-Phrasing</span>
+</div>
+<div class="p-3 rounded bg-[#0A0A0C]/90 border border-[#68D8D6]/30 text-center">
+<span class="font-label-sm text-[11px] text-[#68D8D6] font-semibold block">READ</span>
+<span class="text-[11px] text-[#8F8C84]">Sentence Rhythm</span>
+</div>
+<div class="p-3 rounded bg-[#0A0A0C]/90 border border-[#68D8D6]/30 text-center">
+<span class="font-label-sm text-[11px] text-[#68D8D6] font-semibold block">WRITE</span>
+<span class="text-[11px] text-[#8F8C84]">One-Line Journal</span>
+</div>
+</div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="px-4 py-1.5 rounded-full bg-primary text-[#FAF6EE] text-xs font-label-md tracking-wider shadow-2xl border border-white/20">
+                      True Confidence
+                    </div>
+</div>
+</div>
+<div class="flex items-center justify-between text-[#8F8C84] font-label-sm text-xs pt-3 border-t border-white/[0.08]">
+<span>Compound Daily Progression</span>
+<span class="text-[#68D8D6] font-medium">Fluent Realization</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Step Description & Navigation Selector -->
+<div class="lg:col-span-6 flex flex-col gap-5">
+<!-- Card Step 01 -->
+<div class="cursor-pointer p-6 rounded-xl glass-panel border border-primary/50 transition-all duration-300" id="sticky-step-1">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-xs uppercase tracking-widest text-primary font-bold">Step 01</span>
+<span class="material-symbols-outlined text-primary text-xl">auto_fix_high</span>
+</div>
+<h3 class="font-headline-md text-2xl text-[#FAF6EE] mb-1">Structure first.</h3>
+<p class="font-headline-sm text-sm text-primary italic mb-3">Stop translating. Start forming.</p>
+<p class="font-body-md text-sm text-[#8F8C84] leading-relaxed">
+                  Learn how simple sentence structures help you turn thoughts into English without tripping over rules or getting locked in your mind.
+                </p>
+</div>
+<!-- Card Step 02 -->
+<div class="cursor-pointer p-6 rounded-xl glass-panel border border-white/10 hover:border-secondary/40 transition-all duration-300 opacity-60" id="sticky-step-2">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-xs uppercase tracking-widest text-secondary font-bold">Step 02</span>
+<span class="material-symbols-outlined text-secondary text-xl">record_voice_over</span>
+</div>
+<h3 class="font-headline-md text-2xl text-[#FAF6EE] mb-1">Speak anyway.</h3>
+<p class="font-headline-sm text-sm text-secondary italic mb-3">Your first sentences don’t need to be perfect.</p>
+<p class="font-body-md text-sm text-[#8F8C84] leading-relaxed">
+                  The Mirror Mantra trains your tongue and subconscious when no one is evaluating you — just private, consistent courage.
+                </p>
+</div>
+<!-- Card Step 03 -->
+<div class="cursor-pointer p-6 rounded-xl glass-panel border border-white/10 hover:border-[#68D8D6]/40 transition-all duration-300 opacity-60" id="sticky-step-3">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-xs uppercase tracking-widest text-[#68D8D6] font-bold">Step 03</span>
+<span class="material-symbols-outlined text-[#68D8D6] text-xl">trending_up</span>
+</div>
+<h3 class="font-headline-md text-2xl text-[#FAF6EE] mb-1">Strengthen through practice.</h3>
+<p class="font-headline-sm text-sm text-[#68D8D6] italic mb-3">Listen. Speak. Read. Write.</p>
+<p class="font-body-md text-sm text-[#8F8C84] leading-relaxed">
+                  Build language naturally through LSRW and actionable habits, leaving obsolete grammar tables behind for real-world speech.
+                </p>
+</div>
+</div>
+</div>
+<!-- Bottom Prompt -->
+<div class="flex items-center justify-between pt-4 border-t border-white/[0.08] text-xs font-label-sm text-[#8F8C84]">
+<span>Scroll smoothly through the 3 phases</span>
+<span>Or click any step to explore</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: CINEMATIC BREATHING ROOM QUOTE -->
+<section class="w-full px-gutter-mobile lg:px-margin py-36 relative flex flex-col items-center justify-center text-center border-t border-white/[0.08]">
+<div class="max-w-3xl mx-auto flex flex-col gap-6">
+<div class="w-12 h-0.5 bg-primary mx-auto"></div>
+<p class="font-display-xl text-3xl md:text-5xl text-[#8F8C84] leading-tight">
+          “You don’t need to become fluent overnight.”
+        </p>
+<p class="font-display-xl text-3xl md:text-5xl text-[#FAF6EE] italic font-normal leading-tight">
+          “You just need to start using the English you already have.”
+        </p>
+<div class="w-12 h-0.5 bg-primary mx-auto"></div>
+</div>
+</section>
+<!-- SECTION 6: DRAGGABLE & SMOOTH MARQUEE TESTIMONIAL CAROUSEL -->
+<section class="w-full px-gutter-mobile lg:px-margin py-28 bg-[#0D0D11] border-t border-white/[0.08] relative" id="reader-words">
+<div class="max-w-6xl mx-auto">
+<!-- Header & Controls -->
+<div class="flex items-center justify-between mb-12">
+<div>
+<span class="font-label-sm text-xs uppercase tracking-widest text-primary block mb-2 font-semibold">Reader Reflections</span>
+<h2 class="font-headline-lg text-3xl md:text-4xl text-[#FAF6EE]">Words people shared.</h2>
+</div>
+<!-- Arrow Navigation Controls -->
+<div class="flex items-center gap-3">
+<button aria-label="Previous review" class="w-11 h-11 rounded-full glass-panel hover:border-primary/50 text-[#FAF6EE] flex items-center justify-center transition-all shadow-md active:scale-95" id="carousel-prev">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</button>
+<button aria-label="Next review" class="w-11 h-11 rounded-full glass-panel hover:border-primary/50 text-[#FAF6EE] flex items-center justify-center transition-all shadow-md active:scale-95" id="carousel-next">
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Draggable Horizontal Track -->
+<div class="relative w-full overflow-hidden">
+<div class="flex gap-6 overflow-x-auto pb-6 pt-2 scroll-smooth cursor-grab select-none no-scrollbar touch-pan-x" id="testimonial-carousel">
+<!-- Testimonial 1: Godhuli Vyas (Image 10) -->
+<div class="testimonial-card min-w-[340px] md:min-w-[400px] max-w-[440px] rounded-xl glass-panel p-8 flex flex-col justify-between shadow-xl shrink-0 transition-transform duration-300 hover:border-primary/50">
+<div>
+<span class="material-symbols-outlined text-primary text-3xl mb-4">format_quote</span>
+<p class="font-headline-sm text-xl md:text-2xl text-[#FAF6EE] leading-snug mb-8">
+                  “The book is greatt, its actually very practical and to the point”
+                </p>
+</div>
+<div class="flex items-center gap-4 pt-4 border-t border-white/[0.08]">
+<img alt="Godhuli Vyas" class="w-12 h-12 rounded-full object-cover border border-white/20 shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHd6XmBt48zvgLhHysfHBcvxAc_mOiWcnsFpQ1KOoVP6SYTjv_5B0W8lKX-lLksM_wWcfWiASxcKnlfYt4sL6eVwrFopTTXJIxtJl1cS0acDOFWhSTqj6jN5TMm67A-WYYGQiBy5sfJKYmSXB0D2gwaqMCYXNCCsD-o8otAkvYpoOtBTbi7I8tteaf-CBnCKVUsFtYR_yiLpEP2IsyAHabendd0Zec0N0ZgXvk8g8wcpB2o3IvNs0GgA"/>
+<div>
+<h4 class="font-label-lg text-sm text-[#FAF6EE] font-semibold">Godhuli Vyas</h4>
+<p class="font-body-sm text-xs text-[#8F8C84]">DevOps at EY</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2: Niranjani (Image 9) -->
+<div class="testimonial-card min-w-[340px] md:min-w-[400px] max-w-[440px] rounded-xl glass-panel p-8 flex flex-col justify-between shadow-xl shrink-0 transition-transform duration-300 hover:border-secondary/50">
+<div>
+<span class="material-symbols-outlined text-secondary text-3xl mb-4">format_quote</span>
+<p class="font-headline-sm text-xl md:text-2xl text-[#FAF6EE] leading-snug mb-8">
+                  “The ideas are easy to understand and actually feel doable in everyday life. Great work on this!”
+                </p>
+</div>
+<div class="flex items-center gap-4 pt-4 border-t border-white/[0.08]">
+<img alt="Niranjani" class="w-12 h-12 rounded-full object-cover border border-white/20 shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXPhc3cdC1lqdCdbIM8H_r_9B6yfyQgSZymbFb1k8L0PyU1Ua5y3IRop-OXbkRNF27tJY9G-p-lvNCVBvsGQ5vUEqE0bMu9Y-MQv18FWhQecgFqh-ouZn0rYIKlmc_HCbV_c9rdd4fKYNzgCrx8iK6-WxxFV0vp-QieScs3rgbUU_hRGLwZytBhf-fqKdVG5PPA1aiaRmsok8lNZcPlccawpwH3SZ6QQeEWwU-2Rh6gCzLzxeWYjEhcw"/>
+<div>
+<h4 class="font-label-lg text-sm text-[#FAF6EE] font-semibold">Niranjani</h4>
+<p class="font-body-sm text-xs text-[#8F8C84]">Designer</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3: Gopesh Ojha (Image 8) -->
+<div class="testimonial-card min-w-[340px] md:min-w-[400px] max-w-[440px] rounded-xl glass-panel p-8 flex flex-col justify-between shadow-xl shrink-0 transition-transform duration-300 hover:border-[#68D8D6]/50">
+<div>
+<span class="material-symbols-outlined text-[#68D8D6] text-3xl mb-4">format_quote</span>
+<p class="font-headline-sm text-xl md:text-2xl text-[#FAF6EE] leading-snug mb-8">
+                  “A really thoughtful initiative! I like how it focuses on confidence and practice rather than just perfect grammar.”
+                </p>
+</div>
+<div class="flex items-center gap-4 pt-4 border-t border-white/[0.08]">
+<img alt="Gopesh Ojha" class="w-12 h-12 rounded-full object-cover border border-white/20 shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu4tSjM44esfMAtbn6a8wnZB912HBBv8V5-v9YI-UBCQb1Omukjjkvwl2-8NyioxkhcFZRKs8zuAGKZRx0JQTdHqani73epc7iSirdowLfxM-xCfM2Vx22__hQCQYryarGvACoZAUClxdskoH492PpZi3UdFgBCpfsxNoRsw4pYyEOHn_NWxLoXtu6cW4CzlG_PNEQD-xBK0YoR5bZhfbhPiNWepdSxGaknm2BnAMLKZL6GeWT274vFw"/>
+<div>
+<h4 class="font-label-lg text-sm text-[#FAF6EE] font-semibold">Gopesh Ojha</h4>
+<p class="font-body-sm text-xs text-[#8F8C84]">Communication trainer</p>
+</div>
+</div>
+</div>
+<!-- Duplicate set for seamless continuous marquee loop -->
+<div class="testimonial-card min-w-[340px] md:min-w-[400px] max-w-[440px] rounded-xl glass-panel p-8 flex flex-col justify-between shadow-xl shrink-0 transition-transform duration-300 hover:border-primary/50">
+<div>
+<span class="material-symbols-outlined text-primary text-3xl mb-4">format_quote</span>
+<p class="font-headline-sm text-xl md:text-2xl text-[#FAF6EE] leading-snug mb-8">
+                  “The book is greatt, its actually very practical and to the point”
+                </p>
+</div>
+<div class="flex items-center gap-4 pt-4 border-t border-white/[0.08]">
+<img alt="Godhuli Vyas duplicate" class="w-12 h-12 rounded-full object-cover border border-white/20 shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHd6XmBt48zvgLhHysfHBcvxAc_mOiWcnsFpQ1KOoVP6SYTjv_5B0W8lKX-lLksM_wWcfWiASxcKnlfYt4sL6eVwrFopTTXJIxtJl1cS0acDOFWhSTqj6jN5TMm67A-WYYGQiBy5sfJKYmSXB0D2gwaqMCYXNCCsD-o8otAkvYpoOtBTbi7I8tteaf-CBnCKVUsFtYR_yiLpEP2IsyAHabendd0Zec0N0ZgXvk8g8wcpB2o3IvNs0GgA"/>
+<div>
+<h4 class="font-label-lg text-sm text-[#FAF6EE] font-semibold">Godhuli Vyas</h4>
+<p class="font-body-sm text-xs text-[#8F8C84]">DevOps at EY</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Prompt Banner -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 p-6 rounded-xl glass-panel border border-white/10">
+<div class="flex flex-col">
+<span class="font-headline-sm text-lg text-[#FAF6EE]">What’s your first sentence?</span>
+<span class="font-body-sm text-xs text-[#8F8C84]">Maybe it’s time to say it out loud.</span>
+</div>
+<a class="btn-copper px-6 py-2.5 rounded font-label-md text-xs uppercase tracking-wider text-[#FAF6EE] shrink-0 font-semibold" href="https://superprofile.bio/vp/beyond-broken-english" rel="noopener noreferrer" target="_blank">
+            Start Today →
+          </a>
+</div>
+</div>
+</section>
+<!-- SECTION 7: BOOK PURCHASE SECTION (Uncropped Cover Image 13 & 3D Tilt) -->
+<section class="w-full px-gutter-mobile lg:px-margin py-28 relative border-t border-white/[0.08]">
+<div class="max-w-6xl mx-auto rounded-3xl glass-panel p-8 md:p-16 shadow-2xl relative overflow-hidden border border-white/10">
+<!-- Warm ambient background glow -->
+<div class="absolute -top-32 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[160px] pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Pristine 3D Book Mockup with 3D tilt tracking -->
+<div class="lg:col-span-5 flex items-center justify-center perspective-1200">
+<div class="relative group cursor-pointer transition-transform duration-500 ease-out transform-style-3d" id="book-mockup-wrapper">
+<img alt="Beyond Broken English Book Cover by Nikunj Wakode" class="max-h-[500px] w-auto object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)] rounded-md transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAR35tClAFD5jLJ2qU4w3YBAB8JHiE_2XWxg0qwuCYNdPYbStgpcKqX32-wNi_gulUTGOQ0TLN1VlDPiRoT6pGDoxX_7ZeY-QvxhkBpbkuVK5TElkYGo3s_AlR_W0TFFiyfjJPw8OyyCPldvGBxlT0EL2q2A0cnF3Li5BKEUeRyu7m4QdaF1N4TMEA1RhgdSSOZgGXOei7jYWv8mzm6NCJ0136ZwDt2Y-iRqtk5a0ltUn6P5gY-Jnfp5g"/>
+<!-- Subtle dynamic light glint -->
+<div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-md pointer-events-none"></div>
+</div>
+</div>
+<!-- Purchase Details & Conversion -->
+<div class="lg:col-span-7 flex flex-col items-start">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-high border border-primary/40 text-primary font-label-sm text-[11px] uppercase tracking-widest mb-4 font-semibold">
+              Instant Digital Download
+            </div>
+<h2 class="font-display-xl text-4xl md:text-5xl text-[#FAF6EE] leading-tight mb-2">
+              Start your journey.
+            </h2>
+<p class="font-headline-sm text-xl text-primary italic mb-6">
+              One sentence at a time.
+            </p>
+<p class="font-body-md text-base text-[#8F8C84] mb-8 max-w-lg leading-relaxed">
+              Unlock the complete practical guide by Nikunj Wakode. Dive into the Mirror Mantra, unlearn cognitive translation anxiety, and gain access to curated LSRW frameworks designed for everyday reality.
+            </p>
+<!-- Info Badges Row -->
+<div class="flex flex-wrap items-center gap-3 mb-10">
+<div class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-[#FAF6EE] font-label-sm text-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">menu_book</span>
+<span>Practical Guide</span>
+</div>
+<div class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-[#FAF6EE] font-label-sm text-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">devices</span>
+<span>Digital E-Book</span>
+</div>
+<div class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-[#FAF6EE] font-label-sm text-xs">
+<span class="material-symbols-outlined text-[16px] text-[#68D8D6]">all_inclusive</span>
+<span>Lifetime Access</span>
+</div>
+</div>
+<!-- Big Conversion CTA -->
+<div class="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
+<a class="btn-copper w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded font-label-lg text-xs uppercase tracking-wider font-bold text-[#FAF6EE]" href="https://superprofile.bio/vp/beyond-broken-english" rel="noopener noreferrer" target="_blank">
+<span>GET THE BOOK →</span>
+</a>
+<span class="font-label-sm text-xs text-[#8F8C84]">Direct checkout via SuperProfile</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 8: BOTTOM CLOSING BANNER -->
+<section class="w-full px-gutter-mobile lg:px-margin pb-20 pt-4">
+<div class="max-w-6xl mx-auto rounded-2xl glass-panel p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+<div class="flex flex-col text-center md:text-left">
+<h3 class="font-headline-md text-2xl text-[#FAF6EE] mb-2">
+            Ready to stop overthinking English?
+          </h3>
+<p class="font-body-md text-base text-[#8F8C84]">
+            Take the first step. Start with one sentence.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-6">
+<a class="btn-copper px-8 py-3.5 rounded font-label-lg text-xs uppercase tracking-wider font-semibold text-[#FAF6EE]" href="https://superprofile.bio/vp/beyond-broken-english" rel="noopener noreferrer" target="_blank">
+            Get the Book →
+          </a>
+<span class="font-label-sm text-xs text-[#8F8C84]">
+            © 2026 Nikunj Wakode
+          </span>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="w-full bg-[#070709] border-t border-white/[0.08] relative z-10">
+<div class="w-full max-w-7xl mx-auto px-gutter-mobile lg:px-margin py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex flex-col items-center md:items-start gap-1">
+<span class="font-headline-sm text-lg text-[#FAF6EE]">Beyond Broken English</span>
+<p class="font-body-sm text-xs text-[#8F8C84]">A literary journey from internal paralysis to vocal liberation.</p>
+</div>
+<div class="flex items-center gap-6 font-label-md text-xs text-[#8F8C84]">
+<a class="hover:text-[#FAF6EE] transition-colors" href="#the-inner-dialogue">The Story</a>
+<a class="hover:text-primary transition-colors" href="https://superprofile.bio/vp/beyond-broken-english" rel="noopener noreferrer" target="_blank">Order Copy</a>
+<a class="hover:text-[#FAF6EE] transition-colors" href="#">Press &amp; Media</a>
+</div>
+<div class="font-label-sm text-xs text-[#8F8C84]">
+        © 2026 Nikunj Wakode. All rights reserved.
+      </div>
+</div>
+</footer>
+<!-- SCRIPT: Cinematic Sticky Scroll, Ambient Dust Particles, 3D Tilt & Carousel -->
+<script>
+    (function() {
+      // 1. PERFORMANT AMBIENT PARTICLES CANVAS
+      const canvas = document.getElementById('ambient-canvas');
+      if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        });
+
+        const particles = Array.from({ length: 42 }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.5 + 0.4,
+          alpha: Math.random() * 0.45 + 0.1,
+          speedY: Math.random() * -0.3 - 0.1,
+          speedX: (Math.random() - 0.5) * 0.2,
+          isCopper: Math.random() > 0.4
+        }));
+
+        function renderParticles() {
+          ctx.clearRect(0, 0, width, height);
+          particles.forEach(p => {
+            p.y += p.speedY;
+            p.x += p.speedX;
+            if (p.y < 0) p.y = height;
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.isCopper 
+              ? `rgba(232, 122, 80, ${p.alpha})` 
+              : `rgba(104, 216, 214, ${p.alpha * 0.7})`;
+            ctx.fill();
+          });
+          requestAnimationFrame(renderParticles);
+        }
+        renderParticles();
+      }
+
+      // 2. MOUSE SPOTLIGHT FLASHLIGHT
+      const spotlight = document.getElementById('spotlight-glow');
+      if (spotlight) {
+        window.addEventListener('pointermove', (e) => {
+          spotlight.style.transform = `translate(${e.clientX - 375}px, ${e.clientY - 375}px)`;
+        });
+      }
+
+      // 3. REVEAL-ON-SCROLL ANIMATIONS
+      const reveals = document.querySelectorAll('.reveal-elem');
+      if (reveals.length) {
+        const revObserver = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-revealed');
+            }
+          });
+        }, { threshold: 0.15 });
+        reveals.forEach(el => revObserver.observe(el));
+      }
+
+      // 4. STICKY SCROLL STORYTELLING: 9 INNER DIALOGUE STAGES
+      const storySection = document.getElementById('the-inner-dialogue');
+      const hudCounter = document.getElementById('hud-stage-counter');
+      const hudBar = document.getElementById('hud-progress-bar');
+      const hudStageName = document.getElementById('hud-stage-name');
+      const stagePills = document.querySelectorAll('#interactive-step-pills button');
+
+      const stageBadge = document.getElementById('stage-badge');
+      const stageIcon = document.getElementById('stage-icon');
+      const stageQuote = document.getElementById('stage-quote');
+      const stageAnnotation = document.getElementById('stage-annotation');
+      const stageLight = document.getElementById('stage-indicator-light');
+      const stageStateText = document.getElementById('stage-state-text');
+      const stageCta = document.getElementById('stage-cta-wrapper');
+      const stageHalo = document.getElementById('stage-halo');
+
+      const stagesData = [
+        {
+          num: "01",
+          badge: "01 · OBSERVATION",
+          icon: "visibility",
+          title: "Step 01: Observation",
+          quote: "“You understand English.”",
+          desc: "You read effortlessly. You follow lectures, films, and podcasts with ease. The logic resides comfortably in your comprehension.",
+          stateText: "Mind: Receptive & Clear",
+          lightColor: "bg-emerald-400",
+          haloColor: "rgba(104, 216, 214, 0.15)",
+          isBreakthrough: false
+        },
+        {
+          num: "02",
+          badge: "02 · THE DISCONNECT",
+          icon: "sync_problem",
+          title: "Step 02: Disconnect",
+          quote: "“But speaking feels different.”",
+          desc: "Reading is passive recognition; speaking is spontaneous vulnerability. The transition from receiver to sender feels like stepping off a ledge.",
+          stateText: "Mind: A subtle hesitation enters",
+          lightColor: "bg-amber-400",
+          haloColor: "rgba(224, 169, 109, 0.15)",
+          isBreakthrough: false
+        },
+        {
+          num: "03",
+          badge: "03 · INTERNAL CLARITY",
+          icon: "psychology",
+          title: "Step 03: Internal Clarity",
+          quote: "“You know what you want to say.”",
+          desc: "The idea exists in your mind with absolute crystal vividness—sharp, emotionally nuanced, and ready to contribute.",
+          stateText: "Mind: Concept fully formed",
+          lightColor: "bg-primary",
+          haloColor: "rgba(232, 122, 80, 0.2)",
+          isBreakthrough: false
+        },
+        {
+          num: "04",
+          badge: "04 · THE COGNITIVE JAM",
+          icon: "fork_left",
+          title: "Step 04: Cognitive Jam",
+          quote: "“You translate it in your head.”",
+          desc: "You reach for your native vocabulary first, then construct a mechanical bridge across grammar rules, verbs, and tense tables.",
+          stateText: "Mind: Overloaded translator loop",
+          lightColor: "bg-rose-400",
+          haloColor: "rgba(217, 107, 67, 0.25)",
+          isBreakthrough: false
+        },
+        {
+          num: "05",
+          badge: "05 · THE ANTICIPATION",
+          icon: "crisis_alert",
+          title: "Step 05: Anticipation",
+          quote: "“You worry about making mistakes.”",
+          desc: "What if the pronunciation sounds broken? What if someone pauses and raises an eyebrow? The mental courtroom convenes.",
+          stateText: "Mind: Pre-emptive social anxiety",
+          lightColor: "bg-red-500",
+          haloColor: "rgba(239, 68, 68, 0.2)",
+          isBreakthrough: false
+        },
+        {
+          num: "06",
+          badge: "06 · THE RESIGNATION",
+          icon: "volume_off",
+          title: "Step 06: Resignation",
+          quote: "“So you stay quiet.”",
+          desc: "The window of conversation shuts. Someone else chimes in. Your thought disappears, locked away in unvoiced silence.",
+          stateText: "Mind: Speech suppressed",
+          lightColor: "bg-[#8F8C84]",
+          haloColor: "rgba(143, 140, 132, 0.15)",
+          isBreakthrough: false
+        },
+        {
+          num: "07",
+          badge: "07 · EPIPHANY I",
+          icon: "lightbulb",
+          title: "Step 07: Epiphany I",
+          quote: "“Maybe English isn’t the problem.”",
+          desc: "You don't lack vocabulary. You don't lack intelligence. You've passed the exams and written the emails.",
+          stateText: "Mind: The illusion begins to crack",
+          lightColor: "bg-[#68D8D6]",
+          haloColor: "rgba(104, 216, 214, 0.25)",
+          isBreakthrough: false
+        },
+        {
+          num: "08",
+          badge: "08 · EPIPHANY II",
+          icon: "lock_open",
+          title: "Step 08: Epiphany II",
+          quote: "“Maybe it’s the fear of getting it wrong.”",
+          desc: "The paralysis is psychological armor, not linguistic deficiency. Once you drop the demand for perfection, the vocal path clears.",
+          stateText: "Mind: Clarity restored",
+          lightColor: "bg-primary",
+          haloColor: "rgba(232, 122, 80, 0.3)",
+          isBreakthrough: false
+        },
+        {
+          num: "09",
+          badge: "09 · THE INCEPTION",
+          icon: "auto_awesome",
+          title: "Step 09: Breakthrough",
+          quote: "“That’s where Beyond Broken English begins.”",
+          desc: "A systematic blueprint to practice speech without judgment, rewire internal translation, and speak with authentic presence.",
+          stateText: "Mind: Vocal liberation ready",
+          lightColor: "bg-emerald-400",
+          haloColor: "rgba(232, 122, 80, 0.4)",
+          isBreakthrough: true
+        }
+      ];
+
+      let currentStoryStage = 1;
+
+      function renderStoryStage(stageNum) {
+        if (stageNum < 1 || stageNum > 9) return;
+        currentStoryStage = stageNum;
+        const data = stagesData[stageNum - 1];
+
+        // HUD updates
+        if (hudCounter) hudCounter.textContent = `${data.num} / 09`;
+        if (hudBar) hudBar.style.width = `${(stageNum / 9) * 100}%`;
+        if (hudStageName) hudStageName.textContent = data.title;
+
+        // Stage Pills
+        stagePills.forEach((pill, idx) => {
+          if (idx + 1 === stageNum) {
+            pill.className = "h-8 rounded bg-primary text-[#0A0A0C] font-label-sm text-xs font-bold flex items-center justify-center transition-all scale-105 shadow-md shadow-primary/30";
+          } else {
+            pill.className = "h-8 rounded bg-surface-container-high hover:bg-surface-container-highest text-[#8F8C84] font-label-sm text-xs flex items-center justify-center transition-all";
+          }
+        });
+
+        // Content updates with gentle animation
+        if (stageBadge) stageBadge.textContent = data.badge;
+        if (stageIcon) stageIcon.textContent = data.icon;
+
+        if (stageQuote) {
+          stageQuote.style.opacity = '0';
+          stageQuote.style.transform = 'translateY(8px)';
+          setTimeout(() => {
+            stageQuote.textContent = data.quote;
+            stageQuote.style.opacity = '1';
+            stageQuote.style.transform = 'translateY(0)';
+          }, 150);
+        }
+
+        if (stageAnnotation) {
+          stageAnnotation.style.opacity = '0';
+          setTimeout(() => {
+            stageAnnotation.textContent = data.desc;
+            stageAnnotation.style.opacity = '1';
+          }, 180);
+        }
+
+        if (stageLight) {
+          stageLight.className = `w-3 h-3 rounded-full ${data.lightColor} animate-pulse`;
+        }
+
+        if (stageStateText) {
+          stageStateText.textContent = data.stateText;
+        }
+
+        if (stageHalo) {
+          stageHalo.style.backgroundColor = data.haloColor;
+        }
+
+        if (stageCta) {
+          if (data.isBreakthrough) {
+            stageCta.classList.remove('hidden');
+          } else {
+            stageCta.classList.add('hidden');
+          }
+        }
+      }
+
+      // Pill Click Handlers
+      stagePills.forEach(pill => {
+        pill.addEventListener('click', (e) => {
+          const targetStep = parseInt(pill.getAttribute('data-step'), 10);
+          renderStoryStage(targetStep);
+
+          // Scroll story section smoothly to proportional offset
+          if (storySection) {
+            const rect = storySection.getBoundingClientRect();
+            const scrollDist = storySection.offsetHeight - window.innerHeight;
+            const targetY = window.scrollY + rect.top + (scrollDist * ((targetStep - 1) / 8.5));
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+        });
+      });
+
+      // Scroll Observer for 9 Stages
+      if (storySection) {
+        window.addEventListener('scroll', () => {
+          const rect = storySection.getBoundingClientRect();
+          const totalDistance = storySection.offsetHeight - window.innerHeight;
+          const currentDistance = -rect.top;
+
+          if (currentDistance >= 0 && currentDistance <= totalDistance) {
+            const fraction = currentDistance / totalDistance;
+            const computedStage = Math.min(9, Math.max(1, Math.floor(fraction * 9) + 1));
+            if (computedStage !== currentStoryStage) {
+              renderStoryStage(computedStage);
+            }
+          }
+        }, { passive: true });
+      }
+
+      // 5. 3D PERSPECTIVE TILT CARDS
+      const tiltCards = document.querySelectorAll('[data-tilt="card"]');
+      tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          const tiltX = -(y / rect.height) * 10;
+          const tiltY = (x / rect.width) * 10;
+          card.style.transform = `perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-4px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+        });
+      });
+
+      // Book mockup tilt
+      const bookWrapper = document.getElementById('book-mockup-wrapper');
+      if (bookWrapper) {
+        bookWrapper.addEventListener('mousemove', (e) => {
+          const rect = bookWrapper.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          const tiltX = -(y / rect.height) * 14;
+          const tiltY = (x / rect.width) * 14;
+          bookWrapper.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+        });
+        bookWrapper.addEventListener('mouseleave', () => {
+          bookWrapper.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+        });
+      }
+
+      // 6. STICKY "HOW IT WORKS" 300vh PROGRESSION
+      const stickyHowItWorks = document.getElementById('how-it-works-pinned');
+      const progressFill = document.getElementById('sticky-progress-fill');
+      const nav1 = document.getElementById('step-nav-1');
+      const nav2 = document.getElementById('step-nav-2');
+      const nav3 = document.getElementById('step-nav-3');
+
+      const cardStep1 = document.getElementById('sticky-step-1');
+      const cardStep2 = document.getElementById('sticky-step-2');
+      const cardStep3 = document.getElementById('sticky-step-3');
+
+      const disp1 = document.getElementById('pinned-display-1');
+      const disp2 = document.getElementById('pinned-display-2');
+      const disp3 = document.getElementById('pinned-display-3');
+
+      function setStickyStep(step) {
+        if (progressFill) {
+          if (step === 1) progressFill.style.width = '33.3%';
+          if (step === 2) progressFill.style.width = '66.6%';
+          if (step === 3) progressFill.style.width = '100%';
+        }
+
+        [nav1, nav2, nav3].forEach((nav, i) => {
+          if (nav) {
+            if (i + 1 === step) {
+              nav.className = 'text-xs font-label-sm uppercase tracking-wider text-primary font-bold';
+            } else {
+              nav.className = 'text-xs font-label-sm uppercase tracking-wider text-[#8F8C84]';
+            }
+          }
+        });
+
+        const cards = [cardStep1, cardStep2, cardStep3];
+        cards.forEach((c, i) => {
+          if (!c) return;
+          if (i + 1 === step) {
+            c.classList.remove('opacity-60');
+            c.classList.add('opacity-100', 'border-primary/50');
+          } else {
+            c.classList.remove('opacity-100', 'border-primary/50');
+            c.classList.add('opacity-60');
+          }
+        });
+
+        const displays = [disp1, disp2, disp3];
+        displays.forEach((d, i) => {
+          if (!d) return;
+          if (i + 1 === step) {
+            d.classList.remove('hidden');
+            setTimeout(() => {
+              d.classList.remove('opacity-0');
+              d.classList.add('opacity-100');
+            }, 20);
+          } else {
+            d.classList.add('opacity-0');
+            d.classList.remove('opacity-100');
+            d.classList.add('hidden');
+          }
+        });
+      }
+
+      if (cardStep1) cardStep1.addEventListener('click', () => setStickyStep(1));
+      if (cardStep2) cardStep2.addEventListener('click', () => setStickyStep(2));
+      if (cardStep3) cardStep3.addEventListener('click', () => setStickyStep(3));
+
+      if (stickyHowItWorks) {
+        window.addEventListener('scroll', () => {
+          const rect = stickyHowItWorks.getBoundingClientRect();
+          const totalDistance = stickyHowItWorks.offsetHeight - window.innerHeight;
+          const currentDistance = -rect.top;
+
+          if (currentDistance >= 0 && currentDistance <= totalDistance) {
+            const fraction = currentDistance / totalDistance;
+            if (fraction < 0.33) {
+              setStickyStep(1);
+            } else if (fraction < 0.66) {
+              setStickyStep(2);
+            } else {
+              setStickyStep(3);
+            }
+          }
+        }, { passive: true });
+      }
+
+      // 7. DRAGGABLE & SMOOTH MARQUEE TESTIMONIAL CAROUSEL
+      const carousel = document.getElementById('testimonial-carousel');
+      const nextBtn = document.getElementById('carousel-next');
+      const prevBtn = document.getElementById('carousel-prev');
+
+      if (carousel) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let isHovered = false;
+
+        carousel.addEventListener('mouseenter', () => isHovered = true);
+        carousel.addEventListener('mouseleave', () => {
+          isHovered = false;
+          isDown = false;
+          carousel.classList.remove('cursor-grabbing');
+        });
+
+        carousel.addEventListener('mousedown', (e) => {
+          isDown = true;
+          carousel.classList.add('cursor-grabbing');
+          startX = e.pageX - carousel.offsetLeft;
+          scrollLeft = carousel.scrollLeft;
+        });
+
+        carousel.addEventListener('mouseup', () => {
+          isDown = false;
+          carousel.classList.remove('cursor-grabbing');
+        });
+
+        carousel.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - carousel.offsetLeft;
+          const walk = (x - startX) * 1.5;
+          carousel.scrollLeft = scrollLeft - walk;
+        });
+
+        // Gentle auto drift when not hovered
+        setInterval(() => {
+          if (!isHovered && !isDown) {
+            if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - 5) {
+              carousel.scrollLeft = 0;
+            } else {
+              carousel.scrollLeft += 0.8;
+            }
+          }
+        }, 25);
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: 380, behavior: 'smooth' });
+          });
+        }
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: -380, behavior: 'smooth' });
+          });
+        }
+      }
+    })();
+  </script>
+</body></html>
